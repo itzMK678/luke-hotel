@@ -6,27 +6,26 @@ import "./globals.css"
 
 const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
-
 export const metadata: Metadata = {
   title: "Luxe Hotel - Luxury Accommodation",
   description: "Experience world-class hospitality at Luxe Hotel",
-  generator: "v0.app",
+  generator: "MK Dev",
   icons: {
     icon: [
       {
-        url: "/icon-light-32x32.png",
+        url: "/logo-light.png", // Light mode favicon
         media: "(prefers-color-scheme: light)",
       },
       {
-        url: "/icon-dark-32x32.png",
+        url: "/logo-dark.png", // Dark mode favicon
         media: "(prefers-color-scheme: dark)",
       },
       {
-        url: "/icon.svg",
+        url: "/logo.svg", // SVG version
         type: "image/svg+xml",
       },
     ],
-    apple: "/apple-icon.png",
+    apple: "/apple-icon.png", // Apple touch icon
   },
 }
 
