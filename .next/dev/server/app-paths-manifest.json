@@ -1,7 +1,0 @@
-{
-  "/amenities/[slug]/page": "app/amenities/[slug]/page.js",
-  "/amenities/page": "app/amenities/page.js",
-  "/page": "app/page.js",
-  "/rooms/[id]/page": "app/rooms/[id]/page.js",
-  "/rooms/page": "app/rooms/page.js"
-}
