@@ -61,7 +61,7 @@ export default function Amenities() {
         </div>
       </div>
     </section>
-   
+  
     </>
   );
 }

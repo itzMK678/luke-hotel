@@ -38,36 +38,8 @@ const allRooms = [
     guests: 6,
     size: "120 m²",
   },
-  {
-    id: 4,
-    name: "Ocean View Room",
-    category: "oceanview",
-    price: 399,
-    image: "/ocean-view-bedroom-with-balcony.jpg",
-    beds: 1,
-    guests: 2,
-    size: "45 m²",
-  },
-  {
-    id: 5,
-    name: "Twin Deluxe Room",
-    category: "standard",
-    price: 229,
-    image: "/twin-beds-hotel-room-modern.jpg",
-    beds: 2,
-    guests: 3,
-    size: "42 m²",
-  },
-  {
-    id: 6,
-    name: "Penthouse Suite",
-    category: "presidential",
-    price: 799,
-    image: "/penthouse-suite-city-skyline-view.jpg",
-    beds: 3,
-    guests: 8,
-    size: "200 m²",
-  },
+ 
+
 ]
 
 const categories = [
@@ -86,37 +58,8 @@ export default function RoomsPage() {
 
   return (
     <>
-      <Header />
       <main className="min-h-screen bg-background">
-        {/* Page Header */}
-        <section className="bg-primary text-primary-foreground py-12">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">Our Rooms & Suites</h1>
-            <p className="text-lg opacity-90">Discover the perfect accommodation for your stay</p>
-          </div>
-        </section>
-
-        {/* Filters */}
-        <section className="border-b border-border">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <h3 className="text-lg font-semibold mb-4">Filter by Category</h3>
-            <div className="flex flex-wrap gap-3">
-              {categories.map((category) => (
-                <button
-                  key={category.id}
-                  onClick={() => setSelectedCategory(category.id)}
-                  className={`px-6 py-2 rounded-lg transition ${
-                    selectedCategory === category.id
-                      ? "bg-primary text-primary-foreground"
-                      : "bg-muted text-foreground hover:bg-border"
-                  }`}
-                >
-                  {category.label}
-                </button>
-              ))}
-            </div>
-          </div>
-        </section>
+  <div className="text-center text-3xl  pt-6 underline decoration-blue-800 md:text-4xl font-bold bg">Our Best Rooms </div>
 
         {/* Rooms Grid */}
         <section className="py-12">
@@ -149,7 +92,7 @@ export default function RoomsPage() {
           </div>
         </section>
       </main>
-      <Footer />
+     
     </>
   )
 }
