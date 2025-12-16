@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 
-export default function RoomDetailPage( {idz}) {
+export default function RoomDetailPage( {id}: {id: any} ) {
   const handleBook = () => {
     alert("✅ Room booked successfully!");
   };
