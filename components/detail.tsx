@@ -2,7 +2,15 @@
 
 import Image from "next/image";
 
-export default function RoomDetailPage( {id}: {id: any} ) {
+type Room = {
+  id: number;
+  name: string;
+  image: string;
+  price: number;
+  description: string;
+};
+
+export default function Detail({ room }: { room: Room }) {
   const handleBook = () => {
     alert("✅ Room booked successfully!");
   };
@@ -12,8 +20,8 @@ export default function RoomDetailPage( {id}: {id: any} ) {
       {/* Image */}
       <div className="relative w-full h-[400px] rounded-xl overflow-hidden">
         <Image
-          src={id.image} // place image in public/room.jpg
-          alt="Deluxe Suite"
+          src={room.image}
+          alt={room.name}
           fill
           className="object-cover"
           priority
@@ -23,18 +31,17 @@ export default function RoomDetailPage( {id}: {id: any} ) {
       {/* Details */}
       <div className="mt-8">
         <h1 className="text-3xl font-bold text-foreground">
-        {id.name}
+          {room.name}
         </h1>
 
         <p className="mt-4 text-muted-foreground text-lg">
-        {id.description}
+          {room.description}
         </p>
 
         <div className="mt-6 text-2xl font-semibold text-primary">
-          ${id.price} / night
+          ${room.price} / night
         </div>
 
-        {/* Book Button */}
         <button
           onClick={handleBook}
           className="mt-8 bg-primary text-primary-foreground px-8 py-3 rounded-lg text-lg hover:opacity-90 transition"
