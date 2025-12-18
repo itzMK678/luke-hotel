@@ -64,7 +64,7 @@ const allRooms = [
     category: "presidential",
     price: 799,
     image: "/penthouse-suite-city-skyline-view.jpg",
-    beds: 3,
+    beds: 2,
     guests: 8,
     size: "200 m²",
   },
