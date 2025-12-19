@@ -52,7 +52,7 @@ const allRooms = [
     id: 5,
     name: "Twin Deluxe Room",
     category: "standard",
-    price: 229,
+    price: 239,
     image: "/twin-beds-hotel-room-modern.jpg",
     beds: 2,
     guests: 3,
