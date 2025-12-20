@@ -39,7 +39,7 @@ export default function Detail({ room }: { room: Room }) {
         </p>
 
         <div className="mt-6 text-2xl font-semibold text-primary">
-          ${room.price} / night
+          ${room.price} per night
         </div>
 
         <button
