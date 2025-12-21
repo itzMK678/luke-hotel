@@ -1,5 +1,5 @@
 import Detail from "@/components/detail";
-
+import { notFound } from "next/navigation";
 const allRooms = [
   {
     id: 1,
@@ -31,14 +31,16 @@ type PageProps = {
 };
 
 export default function RoomDetailPage({ params }: PageProps) {
-  const room = allRooms.find((room) => room.id === Number(params.id));
+  const id = Number(params.id);
+
+  if (isNaN(id)) {
+    return notFound();
+  }
+
+  const room = allRooms.find((room) => room.id === id);
 
   if (!room) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p className="text-lg font-semibold">Room not found</p>
-      </div>
-    );
+    return notFound();
   }
 
   return <Detail room={room} />;
