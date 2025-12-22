@@ -25,13 +25,12 @@ const allRooms = [
 ];
 
 type PageProps = {
-  params: {
-    id: string;
-  };
+  params: Promise<{ id: string }>;
 };
 
-export default function RoomDetailPage({ params }: PageProps) {
-  const id = Number(params.id);
+
+export default async function RoomDetailPage({ params }: PageProps) {
+  const id = Number((await params).id);
 
   if (isNaN(id)) {
     return notFound();
