@@ -35,7 +35,7 @@ export default function Header() {
             <Link href="/Anmeties" className="hover:text-red-600 transition">
               Amenities
             </Link>
-            <Link href="#contact" className="hover:text-red-600 transition">
+            <Link href="/ContactP" className="hover:text-red-600 transition">
               Contact
             </Link>
           </nav>
