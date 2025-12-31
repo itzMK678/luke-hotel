@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-
+import Confirmation from "./confirmation";
 type Room = {
   id: number;
   name: string;
@@ -48,6 +48,7 @@ export default function Detail({ room }: { room: Room }) {
         >
           Book Now
         </button>
+        <Confirmation />
       </div>
     </div>
   );

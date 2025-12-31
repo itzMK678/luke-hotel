@@ -11,7 +11,7 @@ const page = () => {
          <div className='flex justify-evenly'><p className='font-extrabold text-blue-700'>Class </p>
          <p className='font-extrabold text-blue-700'>Date  </p>
          </div>
-         <button className='bg-green-400 text-white p-2 rounded-[8px] m-2  w-full hover:bg-green-600 cursor-pointer'>Confirm Order</button>
+         <button className='bg-green-400 text-white p-2 m-2 w-full rounded-[8px] hover:bg-green-600 cursor-pointer'>Confirm Order</button>
         </div>
 
    
