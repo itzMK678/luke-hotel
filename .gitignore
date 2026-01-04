@@ -5,3 +5,4 @@ out/
 # Node
 node_modules/
 
+DATABASE_URL=mongodb://127.0.0.1:27017/Racer
