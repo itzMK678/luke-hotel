@@ -1,11 +1,40 @@
-export async function GET(request: Request) {
-  
-  const users = [
-    { id: 1, name: 'Alice' },
-    { id: 2, name: 'Bob' }
-  ];
-  return new Response(JSON.stringify(users), {
-    status: 200,
-    headers: { 'Content-Type': 'application/json' }
-  });
+import { NextResponse } from "next/server";
+import Contact from "@/model/Contact";
+import connectToDb from "@/database/dbConnect";
+
+export async function POST(req: Request) {
+  try {
+    await connectToDb();
+
+    const { name, mail, message } = await req.json();
+
+    // basic validation
+    if (!name || !mail || !message) {
+      return NextResponse.json(
+        { error: "All fields are required" },
+        { status: 400 }
+      );
+    }
+
+    const newMessage = await Contact.create({
+      name,
+      mail,
+      message,
+    });
+
+    return NextResponse.json(
+      {
+        success: true,
+        message: "Message saved successfully",
+        data: newMessage,
+      },
+      { status: 201 }
+    );
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(
+      { error: "Failed to save message" },
+      { status: 500 }
+    );
+  }
 }
