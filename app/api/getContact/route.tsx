@@ -6,10 +6,10 @@ export async function POST(req: Request) {
   try {
     await connectToDb();
 
-    const { name, mail, message } = await req.json();
+    const { name, mail, type,message } = await req.json();
 
     // basic validation
-    if (!name || !mail || !message) {
+    if (!name || !mail || !type || !message) {
       return NextResponse.json(
         { error: "All fields are required" },
         { status: 400 }
@@ -19,6 +19,7 @@ export async function POST(req: Request) {
     const newMessage = await Contact.create({
       name,
       mail,
+      type,
       message,
     });
 
