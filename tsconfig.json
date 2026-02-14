@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",               // ⭐ ADD THIS LINE
+    "baseUrl": ".",             
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "target": "ES6",
@@ -27,6 +27,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts"
-  ],
+, "app/database/dbConnect.js"  ],
   "exclude": ["node_modules"]
 }

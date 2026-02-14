@@ -1,15 +1,15 @@
 import { NextResponse } from "next/server";
-import Contact from "@/model/Contact";
-import connectToDb from "@/database/dbConnect.ts";
+import Contact from "@/model/Contact.js";
 
+import connectToDb from "@/app/database/dbConnect";
 export async function POST(req: Request) {
   try {
     await connectToDb();
 
-    const { name, mail, type,message } = await req.json();
+    const { name, mail, person, date } = await req.json();
 
     // basic validation
-    if (!name || !mail || !type || !message) {
+    if (!name || !mail || !person || !date) {
       return NextResponse.json(
         { error: "All fields are required" },
         { status: 400 }
@@ -19,9 +19,9 @@ export async function POST(req: Request) {
     const newMessage = await Contact.create({
       name,
       mail,
-      type,
-      message,
-    });
+      person,
+      date,
+                });
 
     return NextResponse.json(
       {
