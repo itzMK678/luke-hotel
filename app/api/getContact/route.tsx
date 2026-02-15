@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import Contact from "@/model/Contact";
-import connectToDb from "@/database/dbConnect.ts";
+import Contact from "../../model/Contact";
+import connectToDb from "@/app/database/dbConnect";
 
 export async function POST(req: Request) {
   try {

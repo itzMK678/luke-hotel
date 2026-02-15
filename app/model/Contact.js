@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const contactSchema = new mongoose.Schema(
   {
@@ -20,7 +20,8 @@ const contactSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-   type: {
+
+    type: {
       type: String,
       required: true,
       trim: true,
@@ -29,6 +30,8 @@ const contactSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// ✅ Prevent model overwrite error
+const Contact =
+  mongoose.models.Contact || mongoose.model("Contact", contactSchema);
 
-module.exports =
-   mongoose.model("Contact", contactSchema);
+export default Contact;
