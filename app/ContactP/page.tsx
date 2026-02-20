@@ -9,20 +9,52 @@ const Page = () => {
   const [name, setName] = useState('')
   const [mail, setMail] = useState('')
   const [message, setMessage] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [success, setSuccess] = useState(false)
+  const [error, setError] = useState('')
 
-  const handleSubmit = async () => {
-    await fetch('/api/contact', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name,
-        mail,
-        type: selectedType,
-        message,
-      }),
-    })
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setError('')
+    setSuccess(false)
+
+    // ✅ Frontend validation
+    if (!name || !mail || !message) {
+      setError('Please fill all fields')
+      return
+    }
+
+    if (!mail.includes('@')) {
+      setError('Please enter a valid email')
+      return
+    }
+
+    try {
+      setLoading(true)
+
+      const res = await fetch('/api/getContact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name,
+          mail,
+          type: selectedType,
+          message,
+        }),
+      })
+
+      if (!res.ok) throw new Error('Failed')
+
+      setSuccess(true)
+      setName('')
+      setMail('')
+      setMessage('')
+      setSelectedType('Review')
+    } catch (err) {
+      setError('Something went wrong. Please try again.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -35,97 +67,124 @@ const Page = () => {
           backgroundImage:
             "url('https://dynamic-media-cdn.tripadvisor.com/media/photo-o/16/1a/ea/54/hotel-presidente-4s.jpg?w=1400&h=800&s=1')",
           backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          backgroundPosition: 'center center',
         }}
       >
-        <div className="absolute inset-0 bg-blue-900/50"></div>
+        <div className="absolute inset-0 bg-blue-900/50" />
 
-        <div className="relative w-full max-w-3xl rounded-2xl p-8
-          bg-white/10 backdrop-blur-sm
-          border border-white/30 shadow-2xl">
-
+        <div className="relative w-full max-w-3xl rounded-2xl p-8 bg-white/10 backdrop-blur-sm border border-white/30 shadow-2xl">
           <h1 className="text-3xl font-bold text-[#3d2e70] text-center mb-8">
             Contact Me
           </h1>
 
           <div className="grid md:grid-cols-2 gap-8">
-            
-            <div className="space-y-4">
+            {/* FORM */}
+            <form onSubmit={handleSubmit} className="space-y-4">
               {/* Name */}
+              <label className="sr-only">Name</label>
               <input
                 type="text"
                 placeholder="Your Name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 className="w-full p-3 rounded-lg bg-white/40 text-blue-900 hover:bg-white
-                  focus:outline-none focus:ring-2 focus:ring-[#3d2e70]"
+                focus:outline-none focus:ring-2 focus:ring-[#3d2e70]"
               />
 
               {/* Type */}
               <div className="flex rounded-lg bg-white/40 text-blue-900 justify-between gap-2 p-1">
-                {['Review','Query','Issue'].map((item) => (
-                  <div
+                {['Review', 'Query', 'Issue'].map((item) => (
+                  <button
+                    type="button"
                     key={item}
+                    aria-selected={selectedType === item}
                     onClick={() => setSelectedType(item)}
-                    className={`  flex-1 text-center rounded-lg p-3 cursor-pointer transition
-                      ${selectedType === item
-                        ? 'bg-white text-[#3d2e70] font-semibold'
-                        : 'bg-white/40 hover:bg-white'
+                    className={`flex-1 rounded-lg p-3 transition font-medium
+                      ${
+                        selectedType === item
+                          ? 'bg-white text-[#3d2e70]'
+                          : 'bg-white/40 hover:bg-white'
                       }`}
                   >
                     {item}
-                  </div>
+                  </button>
                 ))}
               </div>
 
               {/* Email */}
+              <label className="sr-only">Email</label>
               <input
                 type="email"
                 placeholder="Your Email"
                 value={mail}
                 onChange={(e) => setMail(e.target.value)}
                 className="w-full p-3 rounded-lg bg-white/40 text-blue-900 hover:bg-white
-                  focus:outline-none focus:ring-2 focus:ring-[#3d2e70]"
+                focus:outline-none focus:ring-2 focus:ring-[#3d2e70]"
               />
 
               {/* Message */}
+              <label className="sr-only">Message</label>
               <textarea
                 rows="4"
                 placeholder="Your Message"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 className="w-full p-3 rounded-lg bg-white/40 text-blue-900 hover:bg-white
-                  focus:outline-none focus:ring-2 focus:ring-[#3d2e70]"
+                focus:outline-none focus:ring-2 focus:ring-[#3d2e70]"
               />
+
+              {/* Error */}
+              {error && (
+                <p className="text-red-600 text-sm font-medium">{error}</p>
+              )}
+
+              {/* Success */}
+              {success && (
+                <p className="text-green-700 text-sm font-medium">
+                  Message sent successfully!
+                </p>
+              )}
 
               {/* Submit */}
               <button
-                onClick={handleSubmit}
+                type="submit"
+                disabled={loading}
                 className="w-full bg-[#362864] text-white py-3 rounded-lg
-                  hover:bg-[#3d2e70] cursor-pointer transition font-semibold"
+                hover:bg-[#3d2e70] transition font-semibold disabled:opacity-60"
               >
-                Send Message
+                {loading ? 'Sending...' : 'Send Message'}
               </button>
-            </div>
+            </form>
 
-            {/* Social Links (unchanged) */}
+            {/* SOCIAL LINKS */}
             <div className="flex flex-col justify-center gap-4">
-              <div className="flex items-center gap-4 p-4 rounded-xl bg-white/40 hover:bg-white transition cursor-pointer">
+              <a
+                href="https://wa.me/1234567890"
+                target="_blank"
+                className="flex items-center gap-4 p-4 rounded-xl bg-white/40 hover:bg-white transition"
+              >
                 <Phone className="text-[#3d2e70]" />
                 <span className="font-medium text-[#3d2e70]">WhatsApp</span>
-              </div>
+              </a>
 
-              <div className="flex items-center gap-4 p-4 rounded-xl bg-white/40 hover:bg-white transition cursor-pointer">
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                className="flex items-center gap-4 p-4 rounded-xl bg-white/40 hover:bg-white transition"
+              >
                 <Instagram className="text-[#3d2e70]" />
                 <span className="font-medium text-[#3d2e70]">Instagram</span>
-              </div>
+              </a>
 
-              <div className="flex items-center gap-4 p-4 rounded-xl bg-white/40 hover:bg-white transition cursor-pointer">
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                className="flex items-center gap-4 p-4 rounded-xl bg-white/40 hover:bg-white transition"
+              >
                 <Facebook className="text-[#3d2e70]" />
                 <span className="font-medium text-[#3d2e70]">Facebook</span>
-              </div>
+              </a>
             </div>
-
           </div>
         </div>
       </div>

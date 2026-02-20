@@ -7,8 +7,8 @@ const connectToDb= async()=>{
       useUnifiedTopology: true,
     });
     console.log("MongoDB is Connected");
-  }catch (err: unknown) {
-    const errorMessage = err instanceof Error ? err.message : String(err);
-    console.error("❌ DB Connection Failed:", errorMessage);
+  }catch (err) {
+  const errorMessage = err instanceof Error ? err.message : String(err);
+  console.error("❌ DB Connection Failed:", errorMessage);
 }}
 module.exports = connectToDb;
