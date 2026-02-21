@@ -1,7 +1,7 @@
 // dbConnect.js
 import mongoose from "mongoose";
 
-let isConnected = false; // prevent multiple connections in dev
+let isConnected = false; 
 
 const connectToDb = async () => {
   if (isConnected) return;
