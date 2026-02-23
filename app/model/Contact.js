@@ -10,7 +10,7 @@ const ContactSchema = new Schema(
   { timestamps: true }
 );
 
-// ✅ IMPORTANT FIX
+
 const Contact = models.Contact || model("Contact", ContactSchema);
 
 export default Contact;

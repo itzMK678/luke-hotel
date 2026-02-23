@@ -31,79 +31,126 @@ export default function RoomsPage() {
         </section>
 
         {/* Responsive Asymmetric Grid */}
-        <section className="max-w-7xl mx-auto p-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+       
+        <section className="max-w-7xl mx-auto px-4 py-20">
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-5 relative">
 
-            {/* Top-left large hero */}
-            <div className="relative rounded-2xl overflow-hidden shadow-lg sm:col-span-2 lg:col-span-3 aspect-[3/2]">
-              <Image
-                src={RoomImage}
-                fill
-                className="object-cover transition-transform duration-500 ease-in-out hover:scale-105"
-                alt="Hero Room"
-              />
-            </div>
+    {/* ================= ROW 1 ================= */}
+    {[RoomImage, RoomImage2].map((img, i) => (
+      <div
+        key={i}
+        className="group relative h-[270px] rounded-3xl overflow-hidden cursor-pointer"
+      >
+        {/* Image */}
+        <Image
+          src={img}
+          fill
+          className="object-cover transition-all duration-500 group-hover:scale-105 group-hover:z-20"
+          alt="Luxury Room"
+        />
 
-            {/* Top-right small */}
-            <div className="relative rounded-2xl overflow-hidden h-[400px] top-30 shadow-md ">
-              <Image
-                src={RoomImage2}
-                fill
-                className="object-cover transition-transform duration-500 ease-in-out hover:scale-105"
-                alt="Room 2"
-              />
-            </div>
+        {/* Hover Card */}
+        <div className="absolute inset-x-6 bottom-6 translate-y-24 opacity-0 
+          group-hover:translate-y-0 group-hover:opacity-100 
+          transition-all duration-500 bg-white/90 backdrop-blur-xl 
+          rounded-2xl p-6 shadow-2xl z-30">
+          <h3 className="text-xl font-semibold">2 Seater Couple Room</h3>
+           <p className="text-sm text-muted-foreground mt-2">
+    ⭐ 4.0 Rating · Mountain View
+  </p>
+        </div>
+      </div>
+    ))}
 
-            {/* Bottom-left small */}
-            <div className="relative rounded-2xl overflow-hidden shadow-md aspect-[1/1]">
-              <Image
-                src={RoomImage5}
-                fill
-                className="object-cover transition-transform duration-500 ease-in-out hover:scale-105"
-                alt="Room 5"
-              />
-            </div>
+    {/* ================= ROW 2 ================= */}
+    <div className="group relative h-[270px] rounded-3xl overflow-hidden">
+      <Image
+        src={RoomImage3}
+        fill
+        className="object-cover transition-all duration-500 group-hover:scale-105"
+        alt="Room"
+      />
 
-            {/* Bottom row - three images */}
-            <div className="relative rounded-2xl w-[370px] overflow-hidden shadow-sm ">
-              <Image
-                src={RoomImage4}
-                fill
-                className="object-cover transition-transform duration-500 ease-in-out hover:scale-105"
-                alt="Room 4"
-              />
-            </div>
+      {/* Hover Card */}
+      <div className="absolute inset-x-6 bottom-6 translate-y-24 opacity-0 
+        group-hover:translate-y-0 group-hover:opacity-100 
+        transition-all duration-500 bg-white/90 backdrop-blur-xl 
+        rounded-2xl p-6 shadow-2xl z-30">
+        <h3 className="text-xl font-semibold">6 Seater room</h3>
+         <p className="text-sm text-muted-foreground mt-2">
+    ⭐ 4.5 Rating · Mountain View
+  </p>
+      </div>
+    </div>
 
-            <div className="relative left-20 rounded-2xl overflow-hidden shadow-sm w-[470px]">
-              <Image
-                src={RoomImage3}
-                fill
-                className="object-cover transition-transform duration-500 ease-in-out hover:scale-105"
-                alt="Room 3"
-              />
-            </div>
+    <div className="group relative h-[270px] rounded-3xl overflow-hidden">
+      <Image
+        src={RoomImage4}
+        fill
+        className="object-cover transition-all duration-500 group-hover:scale-105"
+        alt="Room"
+      />
 
-            <div className="relative rounded-2xl overflow-hidden shadow-md aspect-[2/1] sm:col-span-2 lg:col-span-2">
-              <Image
-                src={RoomImage6}
-                fill
-                className="object-cover transition-transform duration-500 ease-in-out hover:scale-105"
-                alt="Room 6"
-              />
-            </div>
+      <div className="absolute inset-x-6 bottom-6 translate-y-24 opacity-0 
+        group-hover:translate-y-0 group-hover:opacity-100 
+        transition-all duration-500 bg-white/90 backdrop-blur-xl 
+        rounded-2xl p-6 shadow-2xl z-30">
+        <h3 className="text-xl font-semibold">3 Seater Room</h3>
+       <p className="text-sm text-muted-foreground mt-2">
+    ⭐ 4.5 Rating · Mountain View
+  </p>
+      </div>
+    </div>
 
-            {/* Optional additional image */}
-            <div className="relative rounded-2xl overflow-hidden shadow-md aspect-[2/1] sm:col-span-2 lg:col-span-2">
-              <Image
-                src={RoomImage7}
-                fill
-                className="object-cover transition-transform duration-500 ease-in-out hover:scale-105"
-                alt="Room 7"
-              />
-            </div>
+    {/* Center Button */}
+    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-40">
+      <button className="px-10 py-4 rounded-full text-lg font-semibold 
+        bg-white/80 backdrop-blur-xl shadow-xl 
+        hover:bg-primary hover:text-white transition-all duration-300">
+        Book Room
+      </button>
+    </div>
 
-          </div>
-        </section>
+    {/* ================= ROW 3 ================= */}
+    {[RoomImage6, RoomImage7].map((img, i) => (
+      <div
+        key={i}
+        className="group relative h-[270px] rounded-3xl overflow-hidden cursor-pointer"
+      >
+        <Image
+          src={img}
+          fill
+          className="object-cover transition-all duration-500 group-hover:scale-105"
+          alt="Luxury Room"
+        />
+
+       <div className="absolute inset-x-6 bottom-6 translate-y-24 opacity-0
+  group-hover:translate-y-0 group-hover:opacity-100
+  transition-all duration-500 bg-white/90 backdrop-blur-xl
+  rounded-2xl p-6 shadow-2xl z-30">
+
+  {/* Title + Badge */}
+  <div className="flex items-center justify-between">
+    <h3 className="text-xl font-semibold text-gray-900">
+      Couple Room
+    </h3>
+
+    <span className="text-xs font-bold uppercase tracking-wider
+      bg-red-600 text-white px-3 py-1 rounded-full">
+      VIP
+    </span>
+  </div>
+
+  {/* Meta */}
+  <p className="text-sm text-muted-foreground mt-2">
+    ⭐ 5.0 Rating · Panoramic View
+  </p>
+</div>
+      </div>
+    ))}
+
+  </div>
+</section>
       </main>
 
       <Footer />
