@@ -72,7 +72,7 @@ const Page = () => {
       >
         <div className="absolute inset-0 bg-blue-900/50" />
 
-        <div className="relative w-full max-w-3xl rounded-2xl p-8 bg-white/10 backdrop-blur-sm border border-white/30 shadow-2xl">
+        <div className="m-4 relative w-full max-w-3xl rounded-2xl p-8 bg-white/10 backdrop-blur-sm border border-white/30 shadow-2xl">
           <h1 className="text-3xl font-bold text-[#3d2e70] text-center mb-8">
             Contact Me
           </h1>

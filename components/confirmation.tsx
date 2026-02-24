@@ -2,10 +2,13 @@
 
 import React, { useState } from "react";
 
-const Confirmation = () => {
+type ConfirmationProps = {
+  onClose: () => void;
+};
+
+const Confirmation = ({ onClose }: ConfirmationProps) => {
   const [vip, setVip] = useState(false);
   const [loading, setLoading] = useState(false);
-
   const [formData, setFormData] = useState({
     name: "",
     mail: "",
@@ -14,29 +17,40 @@ const Confirmation = () => {
     person: 2,
   });
 
-  const handleChange = (e) => {
-    setFormData({e.target.value });
+  // Handle input changes
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: name === "person" ? Math.max(1, Number(value)) : value,
+    }));
   };
 
-  const handleSubmit = async (e) => {
+  // Handle form submit
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
+    if (!formData.name || !formData.mail || !formData.number || !formData.date) {
+      alert("❌ Please fill all fields");
+      setLoading(false);
+      return;
+    }
+
     try {
-      const res = await fetch("/api/booking", {
+      const res = await fetch("/api/Booking", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...formData,
-          VIP: vip,
-        }),
+        body: JSON.stringify({ ...formData, VIP: vip }),
       });
 
       const data = await res.json();
-
-      if (!res.ok) throw new Error(data.error);
+      if (!res.ok) throw new Error(data.error || "Booking failed");
 
       alert("✅ Booking Confirmed!");
+      setFormData({ name: "", mail: "", number: "", date: "", person: 2 });
+      setVip(false);
+      onClose(); // Close modal after success
     } catch (err: any) {
       alert(err.message || "Something went wrong");
     } finally {
@@ -45,93 +59,114 @@ const Confirmation = () => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 relative">
-        <h2 className="text-2xl font-extrabold text-blue-950 mb-6 text-center">
-          Confirm Your Booking
-        </h2>
+    <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 relative">
+      {/* Close X */}
+      <button
+        onClick={onClose}
+        className="absolute top-3 right-3 text-gray-500 hover:text-black text-xl font-bold"
+      >
+        ✕
+      </button>
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <input
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            placeholder="Full Name"
-            className="border rounded-lg p-3"
-            required
-          />
+      <h2 className="text-2xl font-extrabold text-blue-950 mb-6 text-center">
+        Confirm Your Booking
+      </h2>
 
-          <input
-            name="mail"
-            type="email"
-            value={formData.mail}
-            onChange={handleChange}
-            placeholder="Email Address"
-            className="border rounded-lg p-3"
-            required
-          />
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <input
+          name="name"
+          type="text"
+          value={formData.name}
+          onChange={handleChange}
+          placeholder="Full Name"
+          disabled={loading}
+          required
+          className="border rounded-lg p-3 focus:ring-2 focus:ring-blue-500 outline-none"
+        />
+        <input
+          name="mail"
+          type="email"
+          value={formData.mail}
+          onChange={handleChange}
+          placeholder="Email Address"
+          disabled={loading}
+          required
+          className="border rounded-lg p-3 focus:ring-2 focus:ring-blue-500 outline-none"
+        />
+        <input
+          name="number"
+          type="tel"
+          value={formData.number}
+          onChange={handleChange}
+          placeholder="Phone Number"
+          disabled={loading}
+          required
+          className="border rounded-lg p-3 focus:ring-2 focus:ring-blue-500 outline-none"
+        />
+        <input
+          name="date"
+          type="date"
+          value={formData.date}
+          onChange={handleChange}
+          disabled={loading}
+          required
+          className="border rounded-lg p-3 focus:ring-2 focus:ring-blue-500 outline-none"
+        />
+        <input
+          name="person"
+          type="number"
+          min={1}
+          value={formData.person}
+          onChange={handleChange}
+          disabled={loading}
+          required
+          className="border rounded-lg p-3 focus:ring-2 focus:ring-blue-500 outline-none"
+        />
 
-          <input
-            name="number"
-            type="tel"
-            value={formData.number}
-            onChange={handleChange}
-            placeholder="Phone Number"
-            className="border rounded-lg p-3"
-            required
-          />
-
-          <input
-            name="date"
-            type="date"
-            value={formData.date}
-            onChange={handleChange}
-            className="border rounded-lg p-3"
-            required
-          />
-
-          <input
-            name="person"
-            type="number"
-            min={1}
-            value={formData.person}
-            placeholder="persons"
-            onChange={handleChange}
-            className="border rounded-lg p-3"
-            required
-          />
-
-          {/* VIP Toggle */}
-          <div className="flex gap-3">
-            <button
-              type="button"
-              onClick={() => setVip(false)}
-              className={`flex-1 py-2 rounded-lg ${
-                !vip ? "bg-gray-800 text-white" : "bg-gray-100"
-              }`}
-            >
-              No VIP
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setVip(true)}
-              className={`flex-1 py-2 rounded-lg ${
-                vip ? "bg-yellow-500 text-white" : "bg-gray-100"
-              }`}
-            >
-              VIP
-            </button>
-          </div>
-
+        {/* VIP Toggle */}
+        <div className="flex gap-3">
           <button
+            type="button"
             disabled={loading}
-            className="bg-green-500 text-white p-3 rounded-lg font-semibold"
+            onClick={() => setVip(false)}
+            className={`flex-1 py-2 rounded-lg font-medium transition-colors ${
+              !vip ? "bg-gray-800 text-white" : "bg-gray-100 text-gray-600"
+            }`}
           >
-            {loading ? "Booking..." : "Confirm Booking"}
+            Standard
           </button>
-        </form>
-      </div>
+          <button
+            type="button"
+            disabled={loading}
+            onClick={() => setVip(true)}
+            className={`flex-1 py-2 rounded-lg font-medium transition-colors ${
+              vip ? "bg-yellow-500 text-white" : "bg-gray-100 text-gray-600"
+            }`}
+          >
+            VIP
+          </button>
+        </div>
+
+        {/* Submit */}
+        <button
+          type="submit"
+          disabled={loading}
+          className={`mt-2 p-3 rounded-lg font-bold text-white transition-all ${
+            loading ? "bg-gray-400 cursor-not-allowed" : "bg-green-600 hover:bg-green-700"
+          }`}
+        >
+          {loading ? "Processing..." : "Confirm Booking"}
+        </button>
+
+        {/* Back button */}
+        <button
+          type="button"
+          onClick={onClose}
+          className="mt-2 p-3 rounded-lg bg-secondary text-white hover:opacity-90 transition"
+        >
+          Back
+        </button>
+      </form>
     </div>
   );
 };
