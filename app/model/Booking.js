@@ -1,8 +1,14 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const BookingSchema = new mongoose.Schema(
   {
     name: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
+    number: {
       type: String,
       required: true,
       trim: true,
@@ -14,20 +20,27 @@ const BookingSchema = new mongoose.Schema(
       lowercase: true,
       trim: true,
     },
+
     date: {
-      type: String,
+      type: Date,
       required: true,
-      trim: true,
     },
-   person: {
-      type: String,
+
+    person: {
+      type: Number,
       required: true,
-      trim: true,
+      min: 1,
+    },
+
+    VIP: {
+      type: Boolean,
+      default: false,
     },
   },
   { timestamps: true }
 );
 
+const Booking =
+  mongoose.models.Booking || mongoose.model("Booking", BookingSchema);
 
-module.exports =
-   mongoose.model("Booking", BookingSchema);
+export default Booking;

@@ -1,39 +1,42 @@
 import { NextResponse } from "next/server";
-import Contact from "../../model/Contact";
 import connectToDb from "@/app/database/dbConnect";
+import Booking from "@/app/model/Booking";
+
 export async function POST(req: Request) {
   try {
     await connectToDb();
 
-    const { name, mail, person, date } = await req.json();
+    const { name, mail, number, date, person, VIP } = await req.json();
 
-    // basic validation
-    if (!name || !mail || !person || !date) {
+    // validation
+    if (!name || !mail || !number || !date || !person) {
       return NextResponse.json(
         { error: "All fields are required" },
         { status: 400 }
       );
     }
 
-    const newMessage = await Contact.create({
+    const booking = await Booking.create({
       name,
       mail,
-      person,
+      number,
       date,
-                });
+      person,
+      VIP,
+    });
 
     return NextResponse.json(
       {
         success: true,
-        message: "Message saved successfully",
-        data: newMessage,
+        message: "Booking confirmed",
+        data: booking,
       },
       { status: 201 }
     );
   } catch (error) {
-    console.error(error);
+    console.error("Booking error:", error);
     return NextResponse.json(
-      { error: "Failed to save message" },
+      { error: "Failed to create booking" },
       { status: 500 }
     );
   }

@@ -1,80 +1,139 @@
-import React, { useState } from 'react'
+"use client";
+
+import React, { useState } from "react";
 
 const Confirmation = () => {
-  const [vip, setVip] = useState('none') // selected VIP option
+  const [vip, setVip] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const [formData, setFormData] = useState({
+    name: "",
+    mail: "",
+    number: "",
+    date: "",
+    person: 2,
+  });
+
+  const handleChange = (e) => {
+    setFormData({e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const res = await fetch("/api/booking", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...formData,
+          VIP: vip,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) throw new Error(data.error);
+
+      alert("✅ Booking Confirmed!");
+    } catch (err: any) {
+      alert(err.message || "Something went wrong");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      {/* Modal Box */}
       <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 relative">
-        {/* Close Button */}
-        <button className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-2xl font-bold">&times;</button>
-
-        {/* Title */}
         <h2 className="text-2xl font-extrabold text-blue-950 mb-6 text-center">
           Confirm Your Booking
         </h2>
 
-        {/* Form */}
-        <form className="flex flex-col gap-4">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <input
-            type="text"
-            placeholder="Name"
-            className="border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            placeholder="Full Name"
+            className="border rounded-lg p-3"
+            required
           />
+
           <input
+            name="mail"
             type="email"
-            placeholder="Email"
-            className="border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+            value={formData.mail}
+            onChange={handleChange}
+            placeholder="Email Address"
+            className="border rounded-lg p-3"
+            required
           />
+
           <input
-            type="text"
-            placeholder="Phone"
-            className="border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+            name="number"
+            type="tel"
+            value={formData.number}
+            onChange={handleChange}
+            placeholder="Phone Number"
+            className="border rounded-lg p-3"
+            required
           />
 
-          {/* Seater Dropdown */}
-          <select
-            className="border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-400 transition bg-white"
-            defaultValue=""
-          >
-            <option value="" disabled>
-              Select Seater
-            </option>
-            <option value="2">2 Seater</option>
-            <option value="4">4 Seater</option>
-            <option value="6">6 Seater</option>
-          </select>
+          <input
+            name="date"
+            type="date"
+            value={formData.date}
+            onChange={handleChange}
+            className="border rounded-lg p-3"
+            required
+          />
 
-          {/* VIP Treatment as clickable buttons */}
-          <div className="flex gap-2">
-            {['none', 'standard', 'premium'].map((option) => (
-              <div
-                key={option}
-                onClick={() => setVip(option)}
-                className={`flex-1 text-center py-2 rounded-lg cursor-pointer transition 
-                  ${vip === option ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-700'}
-                  hover:bg-blue-400 hover:text-white`}
-              >
-                {option === 'none' ? 'No VIP' : option.charAt(0).toUpperCase() + option.slice(1) + ' VIP'}
-              </div>
-            ))}
+          <input
+            name="person"
+            type="number"
+            min={1}
+            value={formData.person}
+            placeholder="persons"
+            onChange={handleChange}
+            className="border rounded-lg p-3"
+            required
+          />
+
+          {/* VIP Toggle */}
+          <div className="flex gap-3">
+            <button
+              type="button"
+              onClick={() => setVip(false)}
+              className={`flex-1 py-2 rounded-lg ${
+                !vip ? "bg-gray-800 text-white" : "bg-gray-100"
+              }`}
+            >
+              No VIP
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setVip(true)}
+              className={`flex-1 py-2 rounded-lg ${
+                vip ? "bg-yellow-500 text-white" : "bg-gray-100"
+              }`}
+            >
+              VIP
+            </button>
           </div>
 
           <button
-            type="submit"
-            className="bg-green-500 text-white p-3 rounded-lg hover:bg-green-600 font-semibold transition"
+            disabled={loading}
+            className="bg-green-500 text-white p-3 rounded-lg font-semibold"
           >
-            Confirm Booking
+            {loading ? "Booking..." : "Confirm Booking"}
           </button>
         </form>
-
-        <p className="text-sm text-gray-500 mt-4 text-center">
-          You will receive a confirmation email shortly.
-        </p>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Confirmation
+export default Confirmation;
