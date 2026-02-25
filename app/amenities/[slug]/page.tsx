@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
@@ -190,11 +191,8 @@ export default async function AmenityDetail({ params }) {
         </div>
 
         {/* BACK BUTTON */}
-        <div className="text-center bg-red-700 p-4 rounded-lg">
-          <Link href="/#amenities" className="text-white hover: text-lg">
-             Back to Amenities
-          </Link>
-        </div>
+       
+     <button className="text-center bg-red-700 p-4 rounded-lg text-white hover: text-lg" onClick={() => window.history.back()}> Back to Amenities</button>
 
       </div>
 
