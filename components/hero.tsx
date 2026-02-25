@@ -17,7 +17,7 @@ export default function Hero() {
           Experience luxury redefined with world-class service and stunning accommodations
         </p>
         <button className="bg-red-600 hover:bg-red-900 text-accent-foreground px-8 py-3 rounded-lg font-semibold transition cursor-pointer">
-          Explore Rooms
+          scroll & Explore Rooms
         </button>
       </div>
     </section>

@@ -19,7 +19,7 @@ export default function Detail({ room }: { room: Room }) {
       <div className="max-w-5xl mx-auto px-4 py-10">
        <button
   onClick={() => window.history.back()}
-  className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+  className="bg-red-500 text-white mb-4 px-4 py-2 rounded hover:bg-red-600 transition"
 >
   Back
 </button>
