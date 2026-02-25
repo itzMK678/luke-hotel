@@ -7,7 +7,9 @@ const page = () => {
   return (
      <>
             <Header/>
+            <div className="-m-15">
             <Amenities />
+            </div> 
             <Footer/>
         </>
   )
