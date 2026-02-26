@@ -59,7 +59,13 @@ const Confirmation = ({ onClose }: ConfirmationProps) => {
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-[650px] p-8 relative">
+    <div className="bg-white rounded-2xl shadow-2xl w-full
+          
+          sm:h-auto
+          sm:max-h-[90vh]
+          sm:max-w-lg
+          md:max-w-2xl
+          lg:max-w-3xl max-w-lg  p-8 relative">
       {/* Close X */}
       <button
         onClick={onClose}
