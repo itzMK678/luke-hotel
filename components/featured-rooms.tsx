@@ -57,23 +57,12 @@ export default function RoomsPage() {
   return (
     <main className="min-h-screen bg-background">
       {/* Page Title */}
-      <div className="text-center text-3xl pt-6 underline decoration-blue-800 md:text-4xl font-bold">
-        Our Best Rooms
+      <div className="text-center text-4xl pt-6  md:text-4xl font-bold">
+        Our Rooms Categories
       </div>
 
       {/* Category Filters */}
-      <div className="flex justify-center gap-4 py-6">
-        {categories.map((cat) => (
-          <Button
-            key={cat.id}
-            variant={selectedCategory === cat.id ? "default" : "outline"}
-            onClick={() => setSelectedCategory(cat.id)}
-          >
-            {cat.label}
-          </Button>
-        ))}
-      </div>
-
+      
       {/* Rooms Grid */}
       <section className="py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
