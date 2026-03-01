@@ -10,7 +10,7 @@ const allRooms = [
     id: 1,
     name: "2-Person Room",
     category: "2-Person Room",
-    price: 199,
+    price: 299,
     image: "/luxury-deluxe-hotel-room.jpg",
     beds: 1,
     guests: 2,
