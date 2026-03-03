@@ -1,8 +1,10 @@
 import React from 'react'
-
+import load from "../public/loading.gif"
 const loader = () => {
   return (
-    <div>loader</div>
+    <div>loader
+        <img src={load} alt="Loading..." />
+    </div>
   )
 }
 
