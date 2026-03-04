@@ -51,7 +51,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="border-t border-primary-foreground/20 pt-2 text-center text-[10px] opacity-80">
-          <p>&copy; 2025 LUXE Hotel. All rights reserved.</p>
+          <p>&copy; Developed By Mamoon Khaliq .</p>
         </div>
       </div>
     </footer>
