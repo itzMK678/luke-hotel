@@ -3,6 +3,7 @@ import Hero from "@/components/hero"
 import FeaturedRooms from "@/components/featured-rooms"
 import Footer from "@/components/footer"
 import Amenities from "./amenities/page"
+import Reviews from "@/components/review"
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
       <Hero />
       <FeaturedRooms />
       <Amenities />
+      <Reviews />
       <Footer />
     </main>
   )
