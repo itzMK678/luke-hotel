@@ -32,10 +32,10 @@ export default function Header() {
             <Link href="/rooms" className="hover:text-red-600 transition">
               Rooms
             </Link>
-            <Link href="/Anmeties" className="hover:text-red-600 transition">
+            <Link href="/amenities" className="hover:text-red-600 transition">
               Amenities
             </Link>
-            <Link href="/ContactP" className="hover:text-red-600 transition">
+            <Link href="/contact" className="hover:text-red-600 transition">
               Contact
             </Link>
           </nav>
@@ -55,14 +55,8 @@ export default function Header() {
           <nav className="flex flex-col gap-4 p-6">
             <Link href="/" onClick={() => setOpen(false)}>Home</Link>
             <Link href="/rooms" onClick={() => setOpen(false)}>Rooms</Link>
-            <Link href="/Anmeties" onClick={() => setOpen(false)}>Amenities</Link>
-            <Link href="/ContactP" onClick={() => setOpen(false)}>Contact</Link>
-
-            <Link href="/rooms" onClick={() => setOpen(false)}>
-              <button className="mt-4 bg-primary text-primary-foreground w-full py-2 rounded-lg">
-                Book Now
-              </button>
-            </Link>
+            <Link href="/amenities" onClick={() => setOpen(false)}>Amenities</Link>
+            <Link href="/contact" onClick={() => setOpen(false)}>Contact</Link>
           </nav>
         </div>
       )}

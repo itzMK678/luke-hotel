@@ -27,6 +27,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts"
-, "app/database/dbConnect.ts", "app/api/getContact/route.js"  ],
+, "app/database/dbConnect.ts", "app/api/getContact/route.js", "app/loading.tsx"  ],
   "exclude": ["node_modules"]
 }

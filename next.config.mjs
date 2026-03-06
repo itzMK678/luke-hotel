@@ -7,7 +7,7 @@ const nextConfig = {
     unoptimized: true,
   },
  experimental: {
-  turbo: false,
+  
 },
 
 };
