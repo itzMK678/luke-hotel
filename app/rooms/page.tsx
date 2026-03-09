@@ -4,7 +4,7 @@ import { useRef, useEffect, useState } from "react";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import Image from "next/image";
-
+import { Loader } from "next/dynamic";
 import RoomImage from "../../public/gg1.png";
 import RoomImage2 from "../../public/gg2.png";
 import RoomImage3 from "../../public/gg3.png";
