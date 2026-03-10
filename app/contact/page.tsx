@@ -1,9 +1,9 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Phone, Instagram, Facebook } from 'lucide-react'
 import Header from '@/components/header'
 import Footer from '@/components/footer'
-
+import Loading from '@/components/loading'
 const Page = () => {
   const [selectedType, setSelectedType] = useState('Review')
   const [name, setName] = useState('')
@@ -12,6 +12,7 @@ const Page = () => {
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState('')
+ const [loader, setLoader] = useState(true);
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -56,9 +57,14 @@ const Page = () => {
       setLoading(false)
     }
   }
-
+ useEffect(() => {
+    setTimeout(() => {
+      setLoader(false);
+    }, 1000);
+  }, []);
   return (
     <>
+    {loader ? <Loading/> : null}
       <Header />
 
       <div

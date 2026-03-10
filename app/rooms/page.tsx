@@ -13,8 +13,10 @@ import RoomImage6 from "../../public/luxury-deluxe-hotel-room.jpg";
 import RoomImage7 from "../../public/gg6.png";
 
 import Confirmation from "@/components/confirmation";
+import Loading from "@/components/loading";
 
 export default function RoomsPage() {
+   const [loader, setLoader] = useState(true);
   const [expanded, setExpanded] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
 
@@ -42,9 +44,15 @@ export default function RoomsPage() {
       setShowConfirm(true);
     }, 400);
   };
-
+useEffect(() => {
+    setTimeout(() => {
+      setLoader(false);
+    }, 1000);
+  }, []);
   return (
     <>
+        {loader ? <Loading/> : null}
+    
       <Header />
 
       <main className="min-h-screen bg-background">

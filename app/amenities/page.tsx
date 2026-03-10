@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
-import { headers } from "next/headers";
+
 // UTILS: slug generator
 function slugify(text: string) {
   return text.toLowerCase().replace(/[^a-z0-9\s-]/g, "").trim().replace(/\s+/g, "-");

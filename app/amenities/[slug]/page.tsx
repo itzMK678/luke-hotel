@@ -1,13 +1,15 @@
 "use client";
+import React, { useEffect, useState, use } from "react";
 import Link from "next/link";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import Loading from "@/components/loading";
 
 // UTILS
 function slugify(text: string) {
   return text.toLowerCase().replace(/[^a-z0-9\s-]/g, "").trim().replace(/\s+/g, "-");
 }
-
+ 
 // AMENITIES (UPDATED)
 const amenities = [
   {
@@ -114,9 +116,18 @@ const amenities = [
   },
 ].map((item) => ({ ...item, slug: slugify(item.name) }));
 
-export default async function AmenityDetail({ params }) {
-  const { slug } = await params;
+export default function AmenityDetail({ params }: { params: { slug: string } }) {
+
+  const [loader, setLoader] = useState(true);
+
+  const { slug } = use(params);
   const amenity = amenities.find((a) => a.slug === slug);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoader(false);
+    }, 2000);
+  }, []);
 
   if (!amenity) {
     return (
@@ -128,6 +139,7 @@ export default async function AmenityDetail({ params }) {
 
   return (
     <>
+    {loader ? <Loading/> : null}
       <Header />
 
       {/* MAIN PAGE */}
@@ -144,16 +156,13 @@ export default async function AmenityDetail({ params }) {
           style={{ backgroundImage: `url(${amenity.photo})` }}
         ></div>
 
-        {/* DESCRIPTION */}
-       
-
         {/* QUALITIES / FEATURES */}
         <div className="bg-white rounded-xl shadow-md p-6 mb-10">
            <p className="text-2xl font-semibold text-black text-center max-w-3xl mx-auto">
           {amenity.description}
         </p>
           
-          <h2 className="text-lg   font-semibold mb-4">Key Features</h2>
+          <h2 className="text-lg font-semibold mb-4">Key Features</h2>
 
           <ul className="space-y-2">
             {amenity.qualities.map((q, index) => (
