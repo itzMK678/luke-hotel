@@ -32,10 +32,13 @@ export default function Header() {
             <Link href="/rooms" className="hover:text-red-600 transition">
               Rooms
             </Link>
-            
+             <Link href="/about" className="hover:text-red-600 transition">
+              About
+            </Link>
             <Link href="/contact" className="hover:text-red-600 transition">
               Contact
             </Link>
+            
           </nav>
 
           {/* Desktop Button */}
@@ -53,7 +56,7 @@ export default function Header() {
           <nav className="flex flex-col gap-4 p-6">
             <Link href="/" onClick={() => setOpen(false)}>Home</Link>
             <Link href="/rooms" onClick={() => setOpen(false)}>Rooms</Link>
-           
+            <Link href="/about" onClick={() => setOpen(false)}>About</Link>
             <Link href="/contact" onClick={() => setOpen(false)}>Contact</Link>
           </nav>
         </div>
